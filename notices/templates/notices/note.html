@@ -4,6 +4,9 @@
   <p>Note: {{ note }}</p>
 
   <p>Content:</p>
+    <p>
+      <a href="{% url 'notices:new_content' note.id %}">add new content</a>
+    </p>
   <ul>
     {% for content in content %}
       <li>

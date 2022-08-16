@@ -1,0 +1,25 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+    <!--<meta charset="UTF-8">-->
+    <!--<title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--</body>-->
+<!--</html>-->
+
+{% extends 'notices/base.html' %}
+
+{% block content %}
+
+  <p><a href="{% url 'notices:note' note.id %}">{{ note }}</a></p>
+
+  <p>Add a new content:</p>
+  <form action="{% url 'notices:new_content' note.id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">add content</button>
+  </form>
+
+{% endblock content %}
