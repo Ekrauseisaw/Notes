@@ -1,0 +1,20 @@
+{% extends 'notices/base.html' %}
+
+{% block content %}
+  <p>Note: {{ note }}</p>
+
+  <p>Content:</p>
+  <ul>
+    {% for content in content %}
+      <li>
+          <p>{{ content.date_added|date:'M d, Y H:i' }}</p>
+          <p>{{ content.text|linebreaks }}</p>
+      </li>
+    {% empty %}
+      <li>
+          There are no info for this Note yet.
+      </li>
+    {% endfor %}
+  </ul>
+
+{% endblock content%}
