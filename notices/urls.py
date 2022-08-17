@@ -19,4 +19,7 @@ urlpatterns = [
 
     # Page for adding new content
     path('new_content/<int:note_id>/', views.new_content, name="new_content"),
+
+    # Page for editing content
+    path('edit_content/<int:content_id>/', views.edit_content, name='edit_content'),
 ]

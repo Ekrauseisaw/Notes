@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
-from .models import Note
+from .models import Note, Content
 from .forms import NoteForm, ContentForm
 
 # Create your views here.
@@ -63,3 +63,21 @@ def new_content(request, note_id):
 
     context = {'note': note, 'form': form}
     return render(request, 'notices/new_content.html', context)
+
+
+def edit_content(request, content_id):
+    """Editing note"""
+    content = Content.objects.get(id=content_id)
+    note = content.note
+
+    if request.method != 'POST':
+        form = ContentForm(instance=content)
+    else:
+        form = ContentForm(instance=content, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('notices:note',
+                                                args=[note.id]))
+
+    context = {'content': content, 'note': note, 'form': form}
+    return render(request, 'notices/edit_content.html', context)
