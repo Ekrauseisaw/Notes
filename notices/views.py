@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect, Http404
 from django.urls import reverse
 from .models import Note, Content
 from .forms import NoteForm, ContentForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -12,21 +13,27 @@ def index(request):
     return render(request, 'notices/index.html')
 
 
+@login_required
 def notes(request):
     """All notes"""
-    notes = Note.objects.order_by('date_added')
+    notes = Note.objects.filter(owner=request.user).order_by('date_added')
     context = {'notes': notes}
     return render(request, 'notices/notes.html', context)
 
 
+@login_required
 def note(request, note_id):
     """Show single note and its content"""
     note = Note.objects.get(id=note_id)
+    #current user-topic checkout
+    if note.owner != request.user:
+        raise Http404
     self_content = note.content_set.order_by('-date_added')
     context = {'note': note, 'content': self_content}
     return render(request, 'notices/note.html', context)
 
 
+@login_required
 def new_note(request):
     """Define a new note"""
     if request.method != 'POST':
@@ -36,14 +43,16 @@ def new_note(request):
         # data POST sent, process the data
         form = NoteForm(request.POST)
         if form.is_valid():
-            #new_note = form.save(commit=False)
-            form.save()
+            new_note = form.save(commit=False)
+            new_note.owner = request.user
+            new_note.save()
             return HttpResponseRedirect(reverse('notices:notes'))
 
     context = {'form': form}
     return render(request, 'notices/new_note.html', context)
 
 
+@login_required
 def new_content(request, note_id):
     """Adding new content for particular note"""
     note = Note.objects.get(id=note_id)
@@ -65,10 +74,14 @@ def new_content(request, note_id):
     return render(request, 'notices/new_content.html', context)
 
 
+@login_required
 def edit_content(request, content_id):
     """Editing note"""
     content = Content.objects.get(id=content_id)
     note = content.note
+
+    if note.owner != request.user:
+        raise Http404
 
     if request.method != 'POST':
         form = ContentForm(instance=content)

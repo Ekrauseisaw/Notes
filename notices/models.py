@@ -8,6 +8,7 @@ class Note(models.Model):
     """ Note title. """
     text = models.CharField(max_length=600)
     date_added = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         """return string model"""
