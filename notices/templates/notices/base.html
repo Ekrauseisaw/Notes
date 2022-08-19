@@ -1,5 +1,13 @@
 <p>
-  <a href="{% url 'notices:index' %}">Notices app</a><!--sdelat notes-->
-  <a href="{% url 'notices:notes' %}">Notes</a>
+  <a href="{% url 'notices:index' %}">Notices app</a> -
+  <a href="{% url 'notices:notes' %}">Notes</a> -
+  {% if user.is_authenticated %}
+    Hello, {{ user.username }}.
+    <a href="{% url 'users:logout' %}">log out</a>
+  {% else %}
+    <a href="{% url 'users:register' %}">register</a>
+    <a href="{% url 'users:login' %}">log in</a>
+  {% endif %}
 </p>
+
 {% block content %}{% endblock content %}
