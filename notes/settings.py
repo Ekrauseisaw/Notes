@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # My settings
+    # Side apps
+    'bootstrap3',
+
+    # My apps
     'notices',
     'users',
 ]
@@ -129,3 +132,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # My settings
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = '/users/login/'
+
+# Django-bootstrap3 settings
+BOOTSTRAP3 = {
+    'include_jquery': True,
+}

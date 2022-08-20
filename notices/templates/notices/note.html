@@ -1,27 +1,33 @@
 {% extends 'notices/base.html' %}
 
+{% block header %}
+  <h2>{{ note }}</h2>
+{% endblock header %}
+
 {% block content %}
 
-  <p>Note: {{ note }}</p>
-
-  <p>Content:</p>
   <p>
     <a href="{% url 'notices:new_content' note.id %}">add new content</a>
   </p>
-  <ul>
+
   {% for content in content %}
-    <li>
-      <p>{{ content.date_added|date:'M d, Y H:i' }}</p>
-      <p>{{ content.text|linebreaks }}</p>
-      <p>
-        <a href="{% url 'notices:edit_content' content.id %}">edit content</a>
-      </p>
-    </li>
-  {% empty %}
-    <li>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3>
+          {{ content.date_added|date:'M d, Y H:i' }}
+          <small>
+            <a href="{% url 'notices:edit_content' content.id %}">
+              edit content</a>
+          </small>
+        </h3>
+      </div>
+      <div class="panel-body">
+        {{ content.text|linebreaks }}
+      </div>
+    </div> <!-- panel -->
+
+    {% empty %}
       There are no info for this Note yet.
-    </li>
-  {% endfor %}
-  </ul>
+    {% endfor %}
 
 {% endblock content%}

@@ -1,5 +1,20 @@
 {% extends "notices/base.html" %}
 
+{% block header %}
+  <div class="jumpotron">
+    <h1>Track your notes.</h1>
+  </div>
+{% endblock header %}
+
 {% block content %}
-<p>You can note everything you want.</p>
+  {% if not user.is_authenticated %}
+    <h2>
+      <a href="{% url 'users:register' %}">Register an account</a> to make
+        your own notes.
+    </h2> <!-- block if base.html? -->
+  {% endif %}
+  <h2>
+    You can write everything you want in the "Notes".
+    Be free in your mindstorm process.
+  </h2>
 {% endblock content %}
