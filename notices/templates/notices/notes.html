@@ -1,4 +1,5 @@
 {% extends "notices/base.html" %}
+{% load bootstrap3 %}
 
 {% block header %}
   <h1>Notes</h1>
@@ -11,6 +12,7 @@
       <li>
         <h3>
           <a href="{% url 'notices:note' note.id %}">{{ note }}</a>
+          <a href="{% url 'notices:delete_note' note.id %}" class="text-danger">Delete</a>
         </h3>
       </li>
     {% empty %}
@@ -18,6 +20,8 @@
     {% endfor %}
   </ul>
 
-    <h3><a href="{% url 'notices:new_note' %}">Add a new note:</a></h3>
+    <h3>
+      <a href="{% url 'notices:new_note' %}" class="text-success">Add a new note</a>
+    </h3>
 
 {% endblock content %}

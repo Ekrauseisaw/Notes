@@ -11,6 +11,7 @@ urlpatterns = [
     # All notes
     path('notes/', views.notes, name='notes'),
 
+
     # Detail page for a single note
     path('notes/<int:note_id>/', views.note, name="note"),
 
@@ -19,7 +20,10 @@ urlpatterns = [
 
     # Page for adding new content
     path('new_content/<int:note_id>/', views.new_content, name="new_content"),
+    #path('new_content/<int:note_id>/', views.delete_content, name="delete_content"),
 
     # Page for editing content
     path('edit_content/<int:content_id>/', views.edit_content, name='edit_content'),
+
+    path('delete_note/<int:note_id>/', views.delete_note, name='delete_note'),
 ]

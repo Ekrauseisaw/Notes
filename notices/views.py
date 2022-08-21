@@ -94,3 +94,20 @@ def edit_content(request, content_id):
 
     context = {'content': content, 'note': note, 'form': form}
     return render(request, 'notices/edit_content.html', context)
+
+
+@login_required
+def delete_note(request, note_id):
+    note = Note.objects.get(id=note_id)
+    form = NoteForm(request.POST)
+    notes = Note.objects.filter(owner=request.user).order_by('date_added')
+
+    note.delete()
+    #context = {'form': form}
+    context = {'notes': notes}
+    return render(request, 'notices/notes.html', context)
+
+
+@login_required
+def delete_content(request, noted_id):
+    pass
