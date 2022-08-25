@@ -144,7 +144,7 @@ cwd = os.getcwd()
 if cwd == '/app' or cwd[:4] == '/tmp':
     import dj_database_url
     DATABASES = {
-        'default': dj_database_url.config(default='posgres://local')
+        'default': dj_database_url.config(default='postgres://local')
     }
 
     # Поддержка заголовка 'X-Forwarded-Proto' для request.is_secure().
