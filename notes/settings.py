@@ -151,8 +151,8 @@ if cwd == '/app' or cwd[:4] == '/tmp':
     SECURE_PROXY_SSL_HEADER = ('HHTP_X_FORWARDED_PROTO', 'https')
 
     # Поддержка заголовка 'X-Forwarded-Proto' для request.is_secure().
-    ALLOWED_HOSTS = ['*']
-    #DEBUG = False
+    ALLOWED_HOSTS = ['ekrause-notes.herokuapp.com']
+    DEBUG = False
 
     # Конфигурация статических ресурсов
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
